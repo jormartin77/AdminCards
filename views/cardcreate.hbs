@@ -1,0 +1,38 @@
+<div class="container-fluid mt-2">
+    <button class="btn btn-dark" onclick="readRFID()">Read Card</button>
+</div>
+<form method="POST" action="/cards/save">
+    <div class="container-fluid">
+        <div class="form-group row align-items-center m-1">
+            <label for="cardkey" class="col-1 col-form-label">Key:</label>
+            <div class="col">
+                <input class="form-control" type="text" id="cardkey" name="cardkey" value="" placeholder="card key" onkeypress="return isNumber(event)"/>
+            </div>
+        </div>
+        <button class="btn btn-dark" type="submit">Create Card</button>
+    </div>
+</form>
+<script>
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
+</script>
+<script>
+function readRFID() {
+    var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+        console.log(xmlHttp.readyState);
+        console.log(xmlHttp.status);
+        console.log(xmlHttp.responseText);
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                cardkey.value = JSON.parse(xmlHttp.responseText)["rfid"];
+        }
+        xmlHttp.open("POST", "/cards/readrfid", true); // true for asynchronous
+        xmlHttp.send(null);
+}
+</script>

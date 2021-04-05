@@ -1,0 +1,23 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+        <h2>List of Cards</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 btn-group-vertical" role="group">
+            {{#if cardlist}}
+                {{#each cardlist}}
+                <div class="col-12 btn-group" role="group">
+                    <a class="btn disabled btn-lg btn-block btn-outline-dark col-10 m-0">{{key}}</a>
+                    <a class="btn btn-lg btn-block btn-outline-danger col-2 m-0" href="/cards/destroy?cardkey={{key}}">delete</a>
+                </div>
+                {{/each}}
+            {{else}}
+                <p>No Created Cards</p>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+
